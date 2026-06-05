@@ -34,7 +34,7 @@
     :root {
       --gold: #B8922A; --gold-light: #D4A94B; --gold-pale: #F5EDD8;
       --teal: #163635; --teal-mid: #1E4A48; --teal-light: #e8f0f0;
-      --cream: #FAFAF8; --cream2: #F2EFE8; --white: #FFFFFF;
+      --cream: #FAFAF8; --white: #FFFFFF;
       --text: #1A2530; --muted: #6B7A8D; --border: rgba(0,0,0,0.08);
       --shadow: 0 2px 12px rgba(0,0,0,0.06); --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
     }
@@ -72,10 +72,10 @@
     .search-icon { color: var(--muted); font-size: 16px; }
     .search-count { font-size: 12px; color: var(--muted); white-space: nowrap; }
 
-    /* MAIN LAYOUT */
+    /* MAIN */
     .main-wrap { max-width: 1000px; margin: 0 auto; padding: 56px 32px 80px; }
 
-    /* CATEGORY FILTERS */
+    /* FILTERS */
     .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
     .filter-btn { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 8px 18px; font-size: 13px; font-weight: 400; color: var(--muted); cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; display: flex; align-items: center; gap: 6px; }
     .filter-btn .count { background: var(--teal-light); color: var(--teal); font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px; }
@@ -102,8 +102,6 @@
     .article-card:hover .arrow-btn { background: var(--teal); border-color: var(--teal); }
     .article-card:hover .arrow-btn svg { stroke: white; }
     .arrow-btn svg { width: 12px; height: 12px; stroke: var(--teal); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-    /* FEATURED CARD (wider) */
     .article-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 2fr; gap: 0; padding: 0; overflow: hidden; }
     .featured-left { background: linear-gradient(145deg, var(--teal), var(--teal-mid)); padding: 36px 32px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 12px; min-height: 180px; }
     .featured-badge { background: rgba(212,169,75,0.2); border: 1px solid rgba(212,169,75,0.35); border-radius: 5px; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-light); padding: 4px 10px; }
@@ -115,9 +113,75 @@
     .no-results { text-align: center; padding: 60px 20px; color: var(--muted); display: none; }
     .no-results h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: var(--teal); margin-bottom: 8px; }
 
+    /* ══ SMART BUYER COURSE BANNER ══ */
+    .sbc-banner {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-mid) 100%);
+      border-radius: 14px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(22,54,53,0.2);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .sbc-banner::before { content: ''; position: absolute; top: -30px; right: -30px; width: 150px; height: 150px; border-radius: 50%; background: rgba(184,146,42,0.07); pointer-events: none; }
+    .sbc-banner:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(22,54,53,0.3); }
+    .sbc-banner-left { display: flex; align-items: center; gap: 14px; }
+    .sbc-banner-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(212,169,75,0.15); border: 1px solid rgba(212,169,75,0.3); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .sbc-banner-badge { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 3px; }
+    .sbc-banner-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: #fff; line-height: 1.2; }
+    .sbc-banner-title em { font-style: italic; color: var(--gold-light); }
+    .sbc-banner-sub { font-size: 12.5px; color: rgba(255,255,255,0.5); font-weight: 300; margin-top: 2px; }
+    .sbc-open-btn { background: var(--gold); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 11px 22px; border-radius: 8px; border: none; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 7px; transition: background 0.2s; flex-shrink: 0; }
+    .sbc-open-btn:hover { background: var(--gold-light); }
+    .sbc-arrow { transition: transform 0.2s; display: inline-block; }
+    .sbc-banner:hover .sbc-arrow { transform: translateX(4px); }
+
+    /* ══ MODAL ══ */
+    .sbc-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 99999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(3px); }
+    .sbc-overlay.open { display: flex; }
+    .sbc-modal { background: linear-gradient(145deg, #163635, #1a3d3b); border-radius: 20px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 24px 72px rgba(0,0,0,0.5); animation: sbcIn 0.22s ease; }
+    @keyframes sbcIn { from { opacity:0; transform:translateY(14px) scale(0.97); } to { opacity:1; transform:translateY(0) scale(1); } }
+    .sbc-modal-inner { padding: 32px 32px 28px; }
+    .sbc-close { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.08); border: none; color: rgba(255,255,255,0.5); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .sbc-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
+    .sbc-modal-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(212,169,75,0.15); border: 1px solid rgba(212,169,75,0.3); border-radius: 20px; padding: 4px 13px; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 12px; }
+    .sbc-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; color: #fff; line-height: 1.15; margin-bottom: 8px; }
+    .sbc-modal-title em { font-style: italic; color: var(--gold-light); }
+    .sbc-modal-sub { font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 16px; }
+    .sbc-days { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .sbc-day { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 4px 10px; font-size: 11px; color: rgba(255,255,255,0.5); }
+    .sbc-day strong { color: var(--gold-light); font-weight: 600; }
+    #sbc-form { display: flex; flex-direction: column; gap: 11px; }
+    .sbc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+    .sbc-field { display: flex; flex-direction: column; gap: 4px; }
+    .sbc-field label { font-size: 10.5px; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; }
+    .sbc-field input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.13); border-radius: 8px; padding: 10px 13px; font-family: 'DM Sans', sans-serif; font-size: 13.5px; color: #fff; outline: none; transition: border-color 0.2s; width: 100%; }
+    .sbc-field input::placeholder { color: rgba(255,255,255,0.25); }
+    .sbc-field input:focus { border-color: rgba(212,169,75,0.5); background: rgba(255,255,255,0.11); }
+    .sbc-consent-row { display: flex; align-items: flex-start; gap: 9px; }
+    .sbc-consent-row input[type="checkbox"] { width: 14px; height: 14px; accent-color: var(--gold); flex-shrink: 0; margin-top: 3px; cursor: pointer; }
+    .sbc-consent-row label { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.6; cursor: pointer; }
+    .sbc-error { display: none; background: rgba(220,60,60,0.15); border: 1px solid rgba(220,60,60,0.3); border-radius: 7px; padding: 9px 13px; font-size: 12px; color: #ff9a9a; }
+    .sbc-submit { background: var(--gold); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 13px 22px; border-radius: 10px; border: none; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s, transform 0.15s; margin-top: 4px; }
+    .sbc-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .sbc-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .sbc-success { display: none; text-align: center; padding: 20px 0 8px; }
+    .sbc-success-icon { width: 58px; height: 58px; border-radius: 50%; background: rgba(212,169,75,0.15); border: 2px solid rgba(212,169,75,0.4); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 14px; }
+    .sbc-success h3 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: #fff; margin-bottom: 8px; }
+    .sbc-success p { font-size: 13px; color: rgba(255,255,255,0.5); font-weight: 300; line-height: 1.7; margin-bottom: 20px; }
+    .sbc-success-close { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 9px 22px; font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: background 0.2s; }
+    .sbc-success-close:hover { background: rgba(255,255,255,0.14); }
+
     /* CTA STRIP */
     .cta-strip { background: var(--teal); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 56px; box-shadow: var(--shadow-lg); }
-    .cta-card { padding: 32px 28px; }
+    .cta-card { padding: 32px 28px; transition: background 0.2s; }
     .cta-card + .cta-card { border-left: 1px solid rgba(255,255,255,0.1); }
     .cta-card:hover { background: rgba(255,255,255,0.04); }
     .cta-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(212,169,75,0.15); border: 1px solid rgba(212,169,75,0.25); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 14px; }
@@ -135,12 +199,9 @@
     .footer-links a { font-size: 13px; color: var(--muted); transition: color 0.2s; }
     .footer-links a:hover { color: var(--teal); }
     .footer-copy { font-size: 11.5px; color: var(--muted); width: 100%; text-align: center; padding-top: 18px; border-top: 1px solid var(--border); margin-top: 4px; }
-
-    /* SCROLL TOP */
     .scroll-top { position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px; background: var(--teal); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transform: translateY(8px); transition: opacity 0.3s, transform 0.3s; font-size: 16px; border: none; box-shadow: 0 4px 14px rgba(0,0,0,0.2); z-index: 99; }
     .scroll-top.visible { opacity: 1; transform: translateY(0); }
 
-    /* RESPONSIVE */
     @media (max-width: 700px) {
       .nav { padding: 0 20px; } .nav-links { display: none; }
       .hero { padding: 52px 20px 52px; }
@@ -149,12 +210,15 @@
       .cta-strip { grid-template-columns: 1fr; }
       .cta-card + .cta-card { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
       footer { padding: 28px 20px; }
+      .sbc-banner { flex-direction: column; align-items: flex-start; }
+      .sbc-open-btn { width: 100%; justify-content: center; }
+      .sbc-modal-inner { padding: 24px 20px; }
+      .sbc-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <a href="https://www.caglaricer.com" target="_blank" rel="noopener" class="nav-logo">Cag <span>Icer</span></a>
   <ul class="nav-links">
@@ -166,7 +230,6 @@
   <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2rdV9Qg2JWK-Ddg7XhPEsDvYIDOLkCD3ycv-zcoW5nT19bfVivn5qOKYv4FWTec_oNIEAzik7J" target="_blank" rel="noopener" class="nav-cta">Book a Call</a>
 </nav>
 
-<!-- HERO -->
 <header class="hero">
   <div class="hero-badge">Toronto Real Estate Education</div>
   <h1>Everything you need to know<br>about <em>buying in Toronto.</em></h1>
@@ -180,7 +243,6 @@
   </div>
 </header>
 
-<!-- SEARCH -->
 <div class="search-wrap">
   <div class="search-box">
     <span class="search-icon">🔍</span>
@@ -195,11 +257,24 @@
   <div class="filter-bar" role="group" id="filter-bar">
     <button class="filter-btn active" data-filter="all">All Topics <span class="count">23</span></button>
     <button class="filter-btn" data-filter="market">Market <span class="count">4</span></button>
-    <button class="filter-btn" data-filter="buying">Buying Process <span class="count">5</span></button>
+    <button class="filter-btn" data-filter="buying">Buying Process <span class="count">6</span></button>
     <button class="filter-btn" data-filter="mortgage">Mortgage &amp; Finance <span class="count">5</span></button>
     <button class="filter-btn" data-filter="offers">Offers &amp; Negotiating <span class="count">4</span></button>
     <button class="filter-btn" data-filter="closing">Closing &amp; Moving <span class="count">3</span></button>
     <button class="filter-btn" data-filter="preconstruction">Pre-Construction <span class="count">2</span></button>
+  </div>
+
+  <!-- ══ SMART BUYER COURSE BANNER ══ -->
+  <div class="sbc-banner" onclick="openSBC()">
+    <div class="sbc-banner-left">
+      <div class="sbc-banner-icon">🎓</div>
+      <div>
+        <div class="sbc-banner-badge">Free 12-Day Email Course</div>
+        <div class="sbc-banner-title">The Smart Buyer <em>Email Course</em></div>
+        <div class="sbc-banner-sub">Everything a Toronto buyer needs to know — delivered to your inbox over 12 days</div>
+      </div>
+    </div>
+    <button class="sbc-open-btn" onclick="openSBC()">Enroll for Free <span class="sbc-arrow">→</span></button>
   </div>
 
   <div id="no-results" class="no-results">
@@ -207,247 +282,165 @@
     <p>Try a different search term or browse all topics.</p>
   </div>
 
-  <!-- ══ MARKET ══ -->
+  <!-- MARKET -->
   <div class="category-section" data-category="market">
     <div class="category-header">
       <div class="category-icon">📊</div>
-      <div>
-        <div class="category-title">Market Conditions</div>
-        <div class="category-sub">What's happening in Toronto right now — and what it means for you</div>
-      </div>
+      <div><div class="category-title">Market Conditions</div><div class="category-sub">What's happening in Toronto right now — and what it means for you</div></div>
     </div>
     <div class="category-divider"></div>
     <div class="articles-grid">
-
       <a class="article-card featured" href="https://www.caglaricer.com/all-about-real-estate_1/ontarios-new-hst-rebate-up-to-130000-back-but-heres-what-no-one-tells" target="_blank" rel="noopener" data-category="market" data-title="Ontario's New HST Rebate: Up to $130,000 Back">
-        <div class="featured-left">
-          <span class="featured-badge">Featured</span>
-          <div class="featured-amount">$130K</div>
-          <div class="featured-amount-sub">HST Rebate — Ontario 2026</div>
-        </div>
-        <div class="featured-right">
-          <div class="article-cat-tag">Tax &amp; Rebates</div>
-          <h3 class="article-h3">Ontario's New HST Rebate: Up to $130,000 Back. But Here's What No One Tells You.</h3>
-          <div class="article-footer">
-            <span class="read-min">5 min read</span>
-            <div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
-          </div>
-        </div>
+        <div class="featured-left"><span class="featured-badge">Featured</span><div class="featured-amount">$130K</div><div class="featured-amount-sub">HST Rebate — Ontario 2026</div></div>
+        <div class="featured-right"><div class="article-cat-tag">Tax &amp; Rebates</div><h3 class="article-h3">Ontario's New HST Rebate: Up to $130,000 Back. But Here's What No One Tells You.</h3><div class="article-footer"><span class="read-min">5 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/is-it-a-buyers-market-or-sellers-market-in-toronto-right-now" target="_blank" rel="noopener" data-category="market" data-title="Is It a Buyer's Market or Seller's Market in Toronto Right Now?">
-        <div class="article-cat-tag">Market Analysis</div>
-        <h3 class="article-h3">Is It a Buyer's Market or Seller's Market in Toronto Right Now?</h3>
+        <div class="article-cat-tag">Market Analysis</div><h3 class="article-h3">Is It a Buyer's Market or Seller's Market in Toronto Right Now?</h3>
         <div class="article-footer"><span class="read-min">6 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/how-much-have-toronto-home-prices-dropped-in-2026" target="_blank" rel="noopener" data-category="market" data-title="How Much Have Toronto Home Prices Dropped in 2026?">
-        <div class="article-cat-tag">Price Watch</div>
-        <h3 class="article-h3">How Much Have Toronto Home Prices Dropped in 2026?</h3>
+        <div class="article-cat-tag">Price Watch</div><h3 class="article-h3">How Much Have Toronto Home Prices Dropped in 2026?</h3>
         <div class="article-footer"><span class="read-min">6 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/is-now-a-good-time-to-buy-a-home-in-toronto" target="_blank" rel="noopener" data-category="market" data-title="Is Now a Good Time to Buy a Home in Toronto?">
-        <div class="article-cat-tag">Timing Strategy</div>
-        <h3 class="article-h3">Is Now a Good Time to Buy a Home in Toronto?</h3>
+        <div class="article-cat-tag">Timing Strategy</div><h3 class="article-h3">Is Now a Good Time to Buy a Home in Toronto?</h3>
         <div class="article-footer"><span class="read-min">7 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
     </div>
   </div>
 
-  <!-- ══ BUYING PROCESS ══ -->
+  <!-- BUYING PROCESS -->
   <div class="category-section" data-category="buying">
     <div class="category-header">
       <div class="category-icon">🏡</div>
-      <div>
-        <div class="category-title">The Buying Process</div>
-        <div class="category-sub">Step-by-step guides to navigating your purchase from search to keys</div>
-      </div>
+      <div><div class="category-title">The Buying Process</div><div class="category-sub">Step-by-step guides to navigating your purchase from search to keys</div></div>
     </div>
     <div class="category-divider"></div>
     <div class="articles-grid">
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/how-the-home-buying-process-works-in-ontario" target="_blank" rel="noopener" data-category="buying" data-title="How the Home Buying Process Works in Ontario">
-        <div class="article-cat-tag">Buyer Guide</div>
-        <h3 class="article-h3">How the Home Buying Process Works in Ontario</h3>
+        <div class="article-cat-tag">Buyer Guide</div><h3 class="article-h3">How the Home Buying Process Works in Ontario</h3>
         <div class="article-footer"><span class="read-min">8 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/do-i-need-a-real-estate-agent" target="_blank" rel="noopener" data-category="buying" data-title="Do I Need a Real Estate Agent?">
-        <div class="article-cat-tag">Agent Guidance</div>
-        <h3 class="article-h3">Do I Need a Real Estate Agent?</h3>
+        <div class="article-cat-tag">Agent Guidance</div><h3 class="article-h3">Do I Need a Real Estate Agent?</h3>
         <div class="article-footer"><span class="read-min">5 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/who-does-what-your-real-estate-team-explained" target="_blank" rel="noopener" data-category="buying" data-title="Who Does What — Your Real Estate Team Explained">
-        <div class="article-cat-tag">Your Team</div>
-        <h3 class="article-h3">Who Does What — Your Real Estate Team Explained</h3>
+        <div class="article-cat-tag">Your Team</div><h3 class="article-h3">Who Does What — Your Real Estate Team Explained</h3>
         <div class="article-footer"><span class="read-min">5 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/what-to-look-for-when-touring-homes" target="_blank" rel="noopener" data-category="buying" data-title="What to Look for When Touring Homes">
-        <div class="article-cat-tag">Home Tours</div>
-        <h3 class="article-h3">What to Look for When Touring Homes</h3>
+        <div class="article-cat-tag">Home Tours</div><h3 class="article-h3">What to Look for When Touring Homes</h3>
         <div class="article-footer"><span class="read-min">6 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/toronto-neighbourhoods-guide" target="_blank" rel="noopener" data-category="buying" data-title="Toronto Neighbourhoods Guide">
-        <div class="article-cat-tag">Neighbourhoods</div>
-        <h3 class="article-h3">Toronto Neighbourhoods Guide</h3>
+        <div class="article-cat-tag">Neighbourhoods</div><h3 class="article-h3">Toronto Neighbourhoods Guide</h3>
         <div class="article-footer"><span class="read-min">10 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/your-real-estate-journey-what-to-expect" target="_blank" rel="noopener" data-category="buying" data-title="Your Real Estate Journey — What to Expect">
-        <div class="article-cat-tag">Journey Overview</div>
-        <h3 class="article-h3">Your Real Estate Journey — What to Expect</h3>
+        <div class="article-cat-tag">Journey Overview</div><h3 class="article-h3">Your Real Estate Journey — What to Expect</h3>
         <div class="article-footer"><span class="read-min">6 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
     </div>
   </div>
 
-  <!-- ══ MORTGAGE & FINANCE ══ -->
+  <!-- MORTGAGE -->
   <div class="category-section" data-category="mortgage">
     <div class="category-header">
       <div class="category-icon">💰</div>
-      <div>
-        <div class="category-title">Mortgage &amp; Finance</div>
-        <div class="category-sub">Understanding what you can afford and how to structure your mortgage</div>
-      </div>
+      <div><div class="category-title">Mortgage &amp; Finance</div><div class="category-sub">Understanding what you can afford and how to structure your mortgage</div></div>
     </div>
     <div class="category-divider"></div>
     <div class="articles-grid">
-
-      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/how-much-home-can-you-actually-afford-gds-tds-explained" target="_blank" rel="noopener" data-category="mortgage" data-title="How Much Home Can You Actually Afford? GDS & TDS Explained">
-        <div class="article-cat-tag">Affordability</div>
-        <h3 class="article-h3">How Much Home Can You Actually Afford? GDS &amp; TDS Explained</h3>
+      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/how-much-home-can-you-actually-afford-gds-tds-explained" target="_blank" rel="noopener" data-category="mortgage" data-title="How Much Home Can You Actually Afford?">
+        <div class="article-cat-tag">Affordability</div><h3 class="article-h3">How Much Home Can You Actually Afford? GDS &amp; TDS Explained</h3>
         <div class="article-footer"><span class="read-min">6 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
-      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/fixed-vs-variable-mortgage-which-one-is-right-for-you" target="_blank" rel="noopener" data-category="mortgage" data-title="Fixed vs. Variable Mortgage — Which One Is Right for You?">
-        <div class="article-cat-tag">Mortgage Types</div>
-        <h3 class="article-h3">Fixed vs. Variable Mortgage — Which One Is Right for You?</h3>
+      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/fixed-vs-variable-mortgage-which-one-is-right-for-you" target="_blank" rel="noopener" data-category="mortgage" data-title="Fixed vs. Variable Mortgage">
+        <div class="article-cat-tag">Mortgage Types</div><h3 class="article-h3">Fixed vs. Variable Mortgage — Which One Is Right for You?</h3>
         <div class="article-footer"><span class="read-min">6 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/where-the-rates-headed" target="_blank" rel="noopener" data-category="mortgage" data-title="Where Are Interest Rates Headed?">
-        <div class="article-cat-tag">Interest Rates</div>
-        <h3 class="article-h3">Where Are Interest Rates Headed?</h3>
+        <div class="article-cat-tag">Interest Rates</div><h3 class="article-h3">Where Are Interest Rates Headed?</h3>
         <div class="article-footer"><span class="read-min">4 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
-      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/first-time-home-buyer-incentives-in-ontario-2026" target="_blank" rel="noopener" data-category="mortgage" data-title="First-Time Home Buyer Incentives in Ontario (2026)">
-        <div class="article-cat-tag">Incentives</div>
-        <h3 class="article-h3">First-Time Home Buyer Incentives in Ontario (2026)</h3>
+      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/first-time-home-buyer-incentives-in-ontario-2026" target="_blank" rel="noopener" data-category="mortgage" data-title="First-Time Home Buyer Incentives in Ontario 2026">
+        <div class="article-cat-tag">Incentives</div><h3 class="article-h3">First-Time Home Buyer Incentives in Ontario (2026)</h3>
         <div class="article-footer"><span class="read-min">7 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
-      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/first-time-buyer-land-transfer-tax-rebate-how-to-claim-it" target="_blank" rel="noopener" data-category="mortgage" data-title="First-Time Buyer Land Transfer Tax Rebate — How to Claim It">
-        <div class="article-cat-tag">Tax Rebate</div>
-        <h3 class="article-h3">First-Time Buyer Land Transfer Tax Rebate — How to Claim It</h3>
+      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/first-time-buyer-land-transfer-tax-rebate-how-to-claim-it" target="_blank" rel="noopener" data-category="mortgage" data-title="First-Time Buyer Land Transfer Tax Rebate">
+        <div class="article-cat-tag">Tax Rebate</div><h3 class="article-h3">First-Time Buyer Land Transfer Tax Rebate — How to Claim It</h3>
         <div class="article-footer"><span class="read-min">5 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
     </div>
   </div>
 
-  <!-- ══ OFFERS ══ -->
+  <!-- OFFERS -->
   <div class="category-section" data-category="offers">
     <div class="category-header">
       <div class="category-icon">✍️</div>
-      <div>
-        <div class="category-title">Offers &amp; Negotiating</div>
-        <div class="category-sub">How to write strong offers and win in competitive situations</div>
-      </div>
+      <div><div class="category-title">Offers &amp; Negotiating</div><div class="category-sub">How to write strong offers and win in competitive situations</div></div>
     </div>
     <div class="category-divider"></div>
     <div class="articles-grid">
-
-      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/how-offers-work-in-ontario-bully-offers-offer-nights-conditions" target="_blank" rel="noopener" data-category="offers" data-title="How Offers Work in Ontario: Bully Offers, Offer Nights & Conditions">
-        <div class="article-cat-tag">Offer Strategy</div>
-        <h3 class="article-h3">How Offers Work in Ontario: Bully Offers, Offer Nights &amp; Conditions</h3>
+      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/how-offers-work-in-ontario-bully-offers-offer-nights-conditions" target="_blank" rel="noopener" data-category="offers" data-title="How Offers Work in Ontario">
+        <div class="article-cat-tag">Offer Strategy</div><h3 class="article-h3">How Offers Work in Ontario: Bully Offers, Offer Nights &amp; Conditions</h3>
         <div class="article-footer"><span class="read-min">7 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
-      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/how-to-make-a-winning-offer-in-a-competitive-market" target="_blank" rel="noopener" data-category="offers" data-title="How to Make a Winning Offer in a Competitive Market">
-        <div class="article-cat-tag">Winning Offers</div>
-        <h3 class="article-h3">How to Make a Winning Offer in a Competitive Market</h3>
+      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/how-to-make-a-winning-offer-in-a-competitive-market" target="_blank" rel="noopener" data-category="offers" data-title="How to Make a Winning Offer">
+        <div class="article-cat-tag">Winning Offers</div><h3 class="article-h3">How to Make a Winning Offer in a Competitive Market</h3>
         <div class="article-footer"><span class="read-min">6 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/what-happens-after-you-submit-an-offer" target="_blank" rel="noopener" data-category="offers" data-title="What Happens After You Submit an Offer">
-        <div class="article-cat-tag">After the Offer</div>
-        <h3 class="article-h3">What Happens After You Submit an Offer</h3>
+        <div class="article-cat-tag">After the Offer</div><h3 class="article-h3">What Happens After You Submit an Offer</h3>
         <div class="article-footer"><span class="read-min">5 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/your-condition-period-checklist" target="_blank" rel="noopener" data-category="offers" data-title="Your Condition Period Checklist">
-        <div class="article-cat-tag">Due Diligence</div>
-        <h3 class="article-h3">Your Condition Period Checklist</h3>
+        <div class="article-cat-tag">Due Diligence</div><h3 class="article-h3">Your Condition Period Checklist</h3>
         <div class="article-footer"><span class="read-min">5 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
     </div>
   </div>
 
-  <!-- ══ CLOSING ══ -->
+  <!-- CLOSING -->
   <div class="category-section" data-category="closing">
     <div class="category-header">
       <div class="category-icon">🔑</div>
-      <div>
-        <div class="category-title">Closing &amp; Moving In</div>
-        <div class="category-sub">What to expect when you're in the home stretch</div>
-      </div>
+      <div><div class="category-title">Closing &amp; Moving In</div><div class="category-sub">What to expect when you're in the home stretch</div></div>
     </div>
     <div class="category-divider"></div>
     <div class="articles-grid">
-
-      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/your-closing-costs-breakdown-ontario" target="_blank" rel="noopener" data-category="closing" data-title="Your Closing Costs Breakdown (Ontario)">
-        <div class="article-cat-tag">Closing Costs</div>
-        <h3 class="article-h3">Your Closing Costs Breakdown (Ontario)</h3>
+      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/your-closing-costs-breakdown-ontario" target="_blank" rel="noopener" data-category="closing" data-title="Your Closing Costs Breakdown Ontario">
+        <div class="article-cat-tag">Closing Costs</div><h3 class="article-h3">Your Closing Costs Breakdown (Ontario)</h3>
         <div class="article-footer"><span class="read-min">6 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
-      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/new-homeowner-checklist-first-30-days" target="_blank" rel="noopener" data-category="closing" data-title="New Homeowner Checklist: First 30 Days">
-        <div class="article-cat-tag">Moving In</div>
-        <h3 class="article-h3">New Homeowner Checklist: First 30 Days</h3>
+      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/new-homeowner-checklist-first-30-days" target="_blank" rel="noopener" data-category="closing" data-title="New Homeowner Checklist First 30 Days">
+        <div class="article-cat-tag">Moving In</div><h3 class="article-h3">New Homeowner Checklist: First 30 Days</h3>
         <div class="article-footer"><span class="read-min">5 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/what-to-look-for-when-touring-homes/home-tour-checklist" target="_blank" rel="noopener" data-category="closing" data-title="Home Tour Checklist">
-        <div class="article-cat-tag">Checklist</div>
-        <h3 class="article-h3">Home Tour Checklist</h3>
+        <div class="article-cat-tag">Checklist</div><h3 class="article-h3">Home Tour Checklist</h3>
         <div class="article-footer"><span class="read-min">3 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
     </div>
   </div>
 
-  <!-- ══ PRE-CONSTRUCTION ══ -->
+  <!-- PRE-CONSTRUCTION -->
   <div class="category-section" data-category="preconstruction">
     <div class="category-header">
       <div class="category-icon">🏗️</div>
-      <div>
-        <div class="category-title">Pre-Construction</div>
-        <div class="category-sub">Everything you need to know before buying off-plan in Ontario</div>
-      </div>
+      <div><div class="category-title">Pre-Construction</div><div class="category-sub">Everything you need to know before buying off-plan in Ontario</div></div>
     </div>
     <div class="category-divider"></div>
     <div class="articles-grid">
-
       <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/how-pre-construction-buying-works-in-ontario" target="_blank" rel="noopener" data-category="preconstruction" data-title="How Pre-Construction Buying Works in Ontario">
-        <div class="article-cat-tag">Pre-Con Guide</div>
-        <h3 class="article-h3">How Pre-Construction Buying Works in Ontario</h3>
+        <div class="article-cat-tag">Pre-Con Guide</div><h3 class="article-h3">How Pre-Construction Buying Works in Ontario</h3>
         <div class="article-footer"><span class="read-min">8 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
-      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/the-10-day-cooling-off-period-what-you-can-and-cannot-do" target="_blank" rel="noopener" data-category="preconstruction" data-title="The 10-Day Cooling Off Period: What You Can and Cannot Do">
-        <div class="article-cat-tag">Cooling Off Period</div>
-        <h3 class="article-h3">The 10-Day Cooling Off Period: What You Can and Cannot Do</h3>
+      <a class="article-card" href="https://www.caglaricer.com/all-about-real-estate_1/the-10-day-cooling-off-period-what-you-can-and-cannot-do" target="_blank" rel="noopener" data-category="preconstruction" data-title="The 10-Day Cooling Off Period">
+        <div class="article-cat-tag">Cooling Off Period</div><h3 class="article-h3">The 10-Day Cooling Off Period: What You Can and Cannot Do</h3>
         <div class="article-footer"><span class="read-min">5 min read</span><div class="arrow-btn"><svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div></div>
       </a>
-
     </div>
   </div>
 
@@ -466,16 +459,60 @@
       <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2rdV9Qg2JWK-Ddg7XhPEsDvYIDOLkCD3ycv-zcoW5nT19bfVivn5qOKYv4FWTec_oNIEAzik7J" target="_blank" rel="noopener" class="cta-link">Get Free Estimate →</a>
     </div>
     <div class="cta-card">
-      <div class="cta-icon">📬</div>
-      <h4>Stay Ahead of the Market</h4>
-      <p>Weekly GTA real estate updates, market intel, and new listings delivered to your inbox.</p>
-      <a href="https://www.caglaricer.com/contact-us" target="_blank" rel="noopener" class="cta-link">Subscribe Free →</a>
+      <div class="cta-icon">🎓</div>
+      <h4>Free 12-Day Buyer Course</h4>
+      <p>Get the Smart Buyer Email Course delivered to your inbox — everything you need to buy smart.</p>
+      <a href="javascript:void(0)" onclick="openSBC()" class="cta-link">Enroll Free →</a>
     </div>
   </div>
 
 </main>
 
-<!-- FOOTER -->
+<!-- MODAL -->
+<div class="sbc-overlay" id="sbc-overlay" onclick="handleOverlayClick(event)">
+  <div class="sbc-modal" id="sbc-modal">
+    <div class="sbc-modal-inner">
+      <button class="sbc-close" onclick="closeSBC()">✕</button>
+      <div class="sbc-modal-badge">Free 12-Day Email Course</div>
+      <h2 class="sbc-modal-title">The Smart Buyer<br><em>Email Course</em></h2>
+      <p class="sbc-modal-sub">12 days of calm, confident real estate education. No overwhelm — just exactly what you need to buy smart in Toronto.</p>
+      <div class="sbc-days">
+        <span class="sbc-day"><strong>Day 1</strong> How buying works</span>
+        <span class="sbc-day"><strong>Day 3</strong> What you can afford</span>
+        <span class="sbc-day"><strong>Day 6</strong> Finding the right home</span>
+        <span class="sbc-day"><strong>Day 8</strong> Offer strategies</span>
+        <span class="sbc-day"><strong>Day 10</strong> Conditions &amp; due diligence</span>
+        <span class="sbc-day"><strong>Day 12</strong> Closing &amp; next steps</span>
+      </div>
+      <div id="sbc-form-wrap">
+        <form id="sbc-form" novalidate>
+          <div class="sbc-row">
+            <div class="sbc-field"><label>First Name *</label><input type="text" id="sbc-first" placeholder="Jane" /></div>
+            <div class="sbc-field"><label>Last Name</label><input type="text" id="sbc-last" placeholder="Smith" /></div>
+          </div>
+          <div class="sbc-field"><label>Email Address *</label><input type="email" id="sbc-email" placeholder="jane@email.com" /></div>
+          <div class="sbc-field"><label>Phone (optional)</label><input type="tel" id="sbc-phone" placeholder="647-000-0000" /></div>
+          <div class="sbc-consent-row">
+            <input type="checkbox" id="sbc-consent" />
+            <label for="sbc-consent">I agree to receive real estate education emails from Cag Icer | Zolo Realty Brokerage. No spam — unsubscribe anytime.</label>
+          </div>
+          <div class="sbc-error" id="sbc-error"></div>
+          <button type="submit" class="sbc-submit" id="sbc-submit">
+            <span id="sbc-btn-text">Start the Free Course</span>
+            <span id="sbc-btn-arrow">→</span>
+          </button>
+        </form>
+      </div>
+      <div class="sbc-success" id="sbc-success">
+        <div class="sbc-success-icon">✓</div>
+        <h3>You're enrolled!</h3>
+        <p>Day 1 is heading to your inbox right now. Over the next 12 days you'll get everything you need to buy smart in Toronto.</p>
+        <button class="sbc-success-close" onclick="closeSBC()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">Cag <span>Icer</span> | Toronto Real Estate</div>
@@ -492,6 +529,43 @@
 <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">↑</button>
 
 <script>
+  const SBC_URL = 'https://script.google.com/macros/s/AKfycbz_XvKO0EpsoKUArJlfAFnuWcG910Tfmqvf_6hvN55luj_aCabIz_xhZICiLz50y_z8/exec';
+
+  function openSBC() { document.getElementById('sbc-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeSBC() { document.getElementById('sbc-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+  function handleOverlayClick(e) { if (e.target === document.getElementById('sbc-overlay')) closeSBC(); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSBC(); });
+
+  document.getElementById('sbc-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const errorBox = document.getElementById('sbc-error');
+    errorBox.style.display = 'none';
+    const firstName = document.getElementById('sbc-first').value.trim();
+    const lastName  = document.getElementById('sbc-last').value.trim();
+    const email     = document.getElementById('sbc-email').value.trim();
+    const phone     = document.getElementById('sbc-phone').value.trim();
+    const consent   = document.getElementById('sbc-consent').checked;
+    if (!firstName) { errorBox.textContent = 'Please enter your first name.'; errorBox.style.display = 'block'; return; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errorBox.textContent = 'Please enter a valid email address.'; errorBox.style.display = 'block'; return; }
+    if (!consent) { errorBox.textContent = 'Please agree to receive emails to continue.'; errorBox.style.display = 'block'; return; }
+    const btn = document.getElementById('sbc-submit');
+    btn.disabled = true;
+    document.getElementById('sbc-btn-text').textContent = 'Enrolling you...';
+    document.getElementById('sbc-btn-arrow').textContent = '⏳';
+    try {
+      await fetch(SBC_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ firstName, lastName, email, phone, consent }) });
+      document.getElementById('sbc-form-wrap').style.display = 'none';
+      document.getElementById('sbc-success').style.display = 'block';
+    } catch(err) {
+      btn.disabled = false;
+      document.getElementById('sbc-btn-text').textContent = 'Start the Free Course';
+      document.getElementById('sbc-btn-arrow').textContent = '→';
+      errorBox.textContent = 'Something went wrong. Please try again.';
+      errorBox.style.display = 'block';
+    }
+  });
+
+  // SEARCH & FILTER
   const allCards = document.querySelectorAll('.article-card');
   const searchInput = document.getElementById('search-input');
   const searchCount = document.getElementById('search-count');
@@ -502,28 +576,19 @@
     const visible = document.querySelectorAll('.article-card:not([style*="display: none"])').length;
     searchCount.textContent = visible + ' guide' + (visible !== 1 ? 's' : '');
   }
-
-  // SEARCH
   searchInput.addEventListener('input', function() {
     const q = this.value.toLowerCase().trim();
     let anyVisible = false;
     allCards.forEach(card => {
-      const title = (card.dataset.title || card.querySelector('.article-h3')?.textContent || '').toLowerCase();
-      const cat = (card.dataset.category || '').toLowerCase();
-      const tag = (card.querySelector('.article-cat-tag')?.textContent || '').toLowerCase();
-      const match = !q || title.includes(q) || cat.includes(q) || tag.includes(q);
+      const match = !q || (card.dataset.title||'').toLowerCase().includes(q) || (card.dataset.category||'').toLowerCase().includes(q) || (card.querySelector('.article-cat-tag')?.textContent||'').toLowerCase().includes(q);
       card.style.display = match ? '' : 'none';
       if (match) anyVisible = true;
     });
-    categorySections.forEach(sec => {
-      const visibleInSection = sec.querySelectorAll('.article-card:not([style*="display: none"])').length;
-      sec.style.display = visibleInSection > 0 ? '' : 'none';
-    });
+    categorySections.forEach(sec => { sec.style.display = sec.querySelectorAll('.article-card:not([style*="display: none"])').length > 0 ? '' : 'none'; });
     noResults.style.display = anyVisible ? 'none' : 'block';
     updateCount();
   });
 
-  // FILTER TABS
   const filterBtns = document.querySelectorAll('.filter-btn');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', function(e) {
@@ -533,19 +598,12 @@
       const f = this.dataset.filter;
       searchInput.value = '';
       allCards.forEach(card => { card.style.display = ''; });
-      if (f === 'all') {
-        categorySections.forEach(sec => { sec.style.display = ''; });
-      } else {
-        categorySections.forEach(sec => {
-          sec.style.display = sec.dataset.category === f ? '' : 'none';
-        });
-      }
+      categorySections.forEach(sec => { sec.style.display = f === 'all' || sec.dataset.category === f ? '' : 'none'; });
       noResults.style.display = 'none';
       updateCount();
     });
   });
 
-  // SCROLL TOP
   const scrollBtn = document.getElementById('scroll-top');
   window.addEventListener('scroll', () => { scrollBtn.classList.toggle('visible', window.scrollY > 400); });
   scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
