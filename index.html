@@ -144,9 +144,9 @@
     .sbc-banner:hover .sbc-arrow { transform: translateX(4px); }
 
     /* ══ MODAL ══ */
-    .sbc-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 99999; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(3px); }
+    .sbc-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 99999; align-items: flex-start; justify-content: center; padding: 16px 16px 40px; backdrop-filter: blur(3px); overflow-y: auto; }
     .sbc-overlay.open { display: flex; }
-    .sbc-modal { background: linear-gradient(145deg, #163635, #1a3d3b); border-radius: 20px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 24px 72px rgba(0,0,0,0.5); animation: sbcIn 0.22s ease; }
+    .sbc-modal { background: linear-gradient(145deg, #163635, #1a3d3b); border-radius: 20px; width: 100%; max-width: 520px; position: relative; box-shadow: 0 24px 72px rgba(0,0,0,0.5); animation: sbcIn 0.22s ease; margin-top: 12px; flex-shrink: 0; }
     @keyframes sbcIn { from { opacity:0; transform:translateY(14px) scale(0.97); } to { opacity:1; transform:translateY(0) scale(1); } }
     .sbc-modal-inner { padding: 32px 32px 28px; }
     .sbc-close { position: absolute; top: 14px; right: 14px; width: 30px; height: 30px; border-radius: 50%; background: rgba(255,255,255,0.08); border: none; color: rgba(255,255,255,0.5); font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
@@ -531,7 +531,7 @@
 <script>
   const SBC_URL = 'https://script.google.com/macros/s/AKfycbz_XvKO0EpsoKUArJlfAFnuWcG910Tfmqvf_6hvN55luj_aCabIz_xhZICiLz50y_z8/exec';
 
-  function openSBC() { document.getElementById('sbc-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function openSBC() { var overlay = document.getElementById('sbc-overlay'); overlay.classList.add('open'); overlay.scrollTop = 0; document.body.style.overflow = 'hidden'; }
   function closeSBC() { document.getElementById('sbc-overlay').classList.remove('open'); document.body.style.overflow = ''; }
   function handleOverlayClick(e) { if (e.target === document.getElementById('sbc-overlay')) closeSBC(); }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSBC(); });
